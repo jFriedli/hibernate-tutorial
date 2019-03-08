@@ -23,9 +23,11 @@ public class QueryStudentDemo {
 			
 			List<Student> students = session.createQuery("from Student").list();
 			
-			for (Student student : students) {
-				System.out.println(student);
-			}
+			displayStudents(students);
+			
+			students = session.createQuery("from Student s where s.lastName='Doe'").list();
+			
+			displayStudents(students);
 			
 			session.getTransaction().commit();
 			
@@ -38,6 +40,12 @@ public class QueryStudentDemo {
 			factory.close();
 		}
 
+	}
+
+	private static void displayStudents(List<Student> students) {
+		for (Student student : students) {
+			System.out.println(student);
+		}
 	}
 
 }
