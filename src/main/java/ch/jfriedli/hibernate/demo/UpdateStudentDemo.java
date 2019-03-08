@@ -28,6 +28,13 @@ public class UpdateStudentDemo {
 			
 			session.getTransaction().commit();
 			
+			session = factory.getCurrentSession();
+			session.beginTransaction();
+			
+			session.createQuery("update Student set email='foo@example.com'").executeUpdate();
+
+			session.getTransaction().commit();
+			
 			System.out.println("Done!");
 			
 
