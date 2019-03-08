@@ -22,10 +22,11 @@ public class DeleteStudentDemo {
 			
 			int studentId = 1;
 			
-			Student student = session.get(Student.class, studentId);
+			//Student student = session.get(Student.class, studentId);
+			//System.out.println("Deleting student: " + student);
+			//session.delete(student);
 			
-			System.out.println("Deleting student: " + student);
-			session.delete(student);
+			session.createQuery("delete from Student where id=2").executeUpdate();
 			
 			session.getTransaction().commit();
 			
