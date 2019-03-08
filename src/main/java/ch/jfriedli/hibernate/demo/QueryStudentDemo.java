@@ -15,24 +15,31 @@ public class QueryStudentDemo {
 		SessionFactory factory = new Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Student.class).buildSessionFactory();
-		
+
 		Session session = factory.getCurrentSession();
-		
+
 		try {
 			session.beginTransaction();
-			
+
 			List<Student> students = session.createQuery("from Student").list();
+
+			displayStudents(students);
+
+			students = session.createQuery(
+					"from Student s where s.lastName='Doe'").list();
+
+			displayStudents(students);
+
+			students = session
+					.createQuery(
+							"from Student s where s.lastName = 'Doe' OR s.firstName='Daffy'")
+					.list();
 			
 			displayStudents(students);
-			
-			students = session.createQuery("from Student s where s.lastName='Doe'").list();
-			
-			displayStudents(students);
-			
+
 			session.getTransaction().commit();
-			
+
 			System.out.println("Done!");
-			
 
 		} catch (Exception e) {
 			e.printStackTrace();
